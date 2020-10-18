@@ -1,0 +1,57 @@
+*{
+    box-sizing: border-box;
+}
+.PostForm{
+    height : 90vh;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+.PostForm form {
+    display : flex;
+    box-sizing: border-box;
+    flex-direction : column;
+    height : 100%;
+    
+}
+.PostForm form textarea{
+    height : 50%;
+    overflow : auto;
+    margin : 10px;
+}
+.PostForm form input{
+    height : 28px;
+    width : 40vw;
+    padding-left : 10px;
+    font-size : 15px;
+    margin : 10px;
+    border-radius : 5px;
+    border : 0.5px solid black;
+}
+
+.PostForm form select{
+    margin : 10px;
+    height : 30px;
+    font-size : 15px;
+    background-color : black;
+    color : white;
+    border-radius : 5px;
+}
+
+button{
+    width : 100px;
+    padding : 10px;
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size : 17px;
+    background-color : white;
+    border-radius : 5px;
+    border : 0.5px solid black;
+    transition : background-color 0.3s ease-in-out
+}
+
+button:hover{
+    background-color : black;
+    color : white;
+}

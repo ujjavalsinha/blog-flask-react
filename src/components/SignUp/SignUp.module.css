@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+}
+.SignUp{
+    
+    height : 90vh;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+.SignUp form {
+    display : flex;
+    flex-direction : column;
+    box-sizing: border-box;
+    justify-content : space-evenly;
+    height : 75%;
+    
+}
+
+.SignUp form input{
+    height : 28px;
+    width : 40vw;
+    padding-left : 10px;
+    font-size : 15px;
+}
+
+button{
+    width : 100px;
+    padding : 10px;
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    font-size : 17px;
+    background-color : white;
+    border-radius : 5px;
+    border : 0.5px solid black;
+    transition : background-color 0.3s ease-in-out
+}
+
+button:hover{
+    background-color : black;
+    color : white;
+}

@@ -1,0 +1,17 @@
+.NavBar{
+    display : flex;
+    width : 90%;
+    margin : auto;
+    height : 3em;
+    align-items : center;
+    background-color : white;
+
+}
+
+.Logo{
+    flex : 1;
+}
+
+.NavigationItems{
+    flex : 1;
+}

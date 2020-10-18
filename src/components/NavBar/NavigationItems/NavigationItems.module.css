@@ -1,0 +1,6 @@
+.NavigationItems{
+    display : flex;
+    align-items : center;
+    justify-content : space-evenly;
+    list-style : none;
+}
