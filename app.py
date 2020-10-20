@@ -7,7 +7,7 @@ from flask_cors import CORS
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_api import status
-
+#creating FLASK APP
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'asdkn32knSDASdnakdnsNKANFSKF4434tSAFKMl'
 CORS(app)
