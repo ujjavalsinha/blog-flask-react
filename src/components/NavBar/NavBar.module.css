@@ -1,17 +1,22 @@
 .NavBar{
     display : flex;
-    width : 90%;
+    background-color : rgba(0,0,0,0.8);
     margin : auto;
-    height : 3em;
+    height : 3.5em;
+    width : 100%;
     align-items : center;
-    background-color : white;
-
+    top : 0;
+    position : sticky;
+    z-index : 1000;
 }
 
 .Logo{
     flex : 1;
+    display : flex;
+    margin-left : 10%;
 }
 
 .NavigationItems{
     flex : 1;
+    
 }

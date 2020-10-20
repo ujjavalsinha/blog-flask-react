@@ -55,7 +55,7 @@ export const authSignIn = (userLoginData,history) => {
         .then(response => {
             console.log(response)
             dispatch(authSuccess(response.data.tokenId,response.data.userId))
-            history.replace('/posts')
+            history.push('/')
         })
         .catch(error => {
             console.log(error)

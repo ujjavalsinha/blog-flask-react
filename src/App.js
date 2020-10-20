@@ -9,13 +9,15 @@ import {connect } from 'react-redux'
 import FullPost from './components/FullPost/FullPost'
 import Logout from './components/Logout/Logout'
 import EditForm from './components/EditForm/EditForm'
+import HomePage from './components/HomePage/HomePage'
+import { Redirect } from 'react-router-dom';
 function App(props) {
   return (
     <div>
       <NavBar/>
       {props.isAuth ? 
         <Switch>
-          <Route path="/" exact render={()=><h1>HOMEPAGE</h1>}/>
+          <Route path="/" exact component={HomePage}/>
           <Route path="/postform" component={PostForm}/>
           <Route path="/post/:post_id/edit" component={EditForm}/>
           <Route path="/post/:post_id" component={FullPost}/>
@@ -25,9 +27,10 @@ function App(props) {
         </Switch>
       :
         <Switch>
-          <Route path="/" exact render={()=><h1>HOMEPAGE</h1>}/>
+          <Route path="/" exact component={HomePage}/>
           <Route path="/signup" exact component={SignUp}/>
           <Route path="/login" component={Login}/>
+          <Redirect to="/"/>
         </Switch>}
     </div>
   )

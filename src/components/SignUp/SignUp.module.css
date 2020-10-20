@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 .SignUp{
-    
+    margin-top : 20px;
     height : 90vh;
     display : flex;
     justify-content : center;
