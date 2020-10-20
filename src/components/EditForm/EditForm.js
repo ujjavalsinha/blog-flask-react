@@ -44,13 +44,15 @@ class EditForm extends Component {
             <div className={styles.PostForm}>
                 <form>
                     <h1>Write your blog!</h1>
-                    <input type='text' value={this.state.title}  placeholder='TITLE' onChange={(e)=>this.setState({title : e.target.value})}></input>
+                    <input className={styles.Title} type='text' value={this.state.title}  placeholder='TITLE' onChange={(e)=>this.setState({title : e.target.value})}></input>
+                    <div>
                     <select name="categories" id="categories" value={this.state.category} onChange={(e)=>this.setState({category : e.target.value})}>
                         <option value="Music">Music</option>
                         <option value="Travel">Travel</option>
                         <option value="Fitness">Fitness</option>
                         <option value="Technology">Technology</option>
                     </select>
+                    </div>
                     <textarea value={this.state.text} onChange={(e)=>this.setState({text : e.target.value})}></textarea>
                     <button onClick={(e)=>this.onPublish(e)}>PUBLISH</button>
                 </form>

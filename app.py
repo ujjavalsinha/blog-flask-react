@@ -7,7 +7,7 @@ from flask_cors import CORS
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_api import status
-#creating FLASK APP
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'asdkn32knSDASdnakdnsNKANFSKF4434tSAFKMl'
 CORS(app)
@@ -84,7 +84,7 @@ def get_fullpost(post_id):
         db.session.commit()
         return "Post Edited Successfully"
     post = Post.query.get(post_id)
-    json_output = {'post_id': post_id,'title':post.title,'text':post.text,'published_date':post.pub_date,'category':post.category.name,'author':post.user.name}
+    json_output = {'user_id':post.user.user_id,'post_id': post_id,'title':post.title,'text':post.text,'published_date':post.pub_date,'category':post.category.name,'author':post.user.name}
     return jsonify(json_output)
 
 @app.route('/api/post/<post_id>/delete', methods=['GET'])
@@ -97,6 +97,48 @@ def delete_post(post_id):
     db.session.commit()
     return "Post Deleted"
 
+@app.route('/api/post/<post_id>/comments',methods=['GET'])
+def get_comments(post_id):
+    post = Post.query.get(post_id)
+    comments = Comment.query.filter_by(post=post)
+    json_comments = []
+    for comment in comments:
+        comment_dict = {}
+        comment_dict['text']=comment.text
+        comment_dict['author'] = comment.user.name
+        comment_dict['created_at'] = comment.created_at
+        json_comments.append(comment_dict)
+    return jsonify(json_comments)
+
+@app.route('/api/post/<post_id>/comment',methods=["POST"])
+def post_comment(post_id):
+    auth = request.args.get('auth')
+    if auth!=tokenId:
+        raise InvalidUsage("You are not authorized",status_code=401)
+    text = request.json['comment']
+    userId = request.json['userId']
+    user = User.query.get(userId)
+    post = Post.query.get(post_id)
+    comment = Comment(text=text,user=user,post=post)
+    db.session.add(comment)
+    db.session.commit()
+    return "Comment submitted successfully"
+
+@app.route('/api/allposts',methods=["GET"])
+def get_all_post():
+    posts = Post.query.all()
+    
+    all_posts = []
+    for post in posts:
+        post_dict = {}
+        post_dict['post_id'] = post.post_id
+        post_dict['title'] = post.title
+        post_dict['text'] = post.text
+        post_dict['published_date'] = post.pub_date
+        post_dict['category'] = post.category.name
+        post_dict['author'] = post.user.name
+        all_posts.append(post_dict)
+    return jsonify(all_posts)
 
 @app.route('/api/posts',methods=["POST","GET"])
 def post_posts():
@@ -110,6 +152,7 @@ def post_posts():
         text = request.json['text']
         user = User.query.filter_by(user_id = user_id).first()
         cat = Category.query.filter_by(name=category).first()
+        
         post = Post(title=title,text=text,user=user,category=cat)
         db.session.add(post)
         db.session.commit()
@@ -146,6 +189,9 @@ class User(db.Model):
         self.email = email
         self.city = city
 
+    def __repr__(self):
+        return self.email
+
 class Post(db.Model):
     post_id = db.Column(db.Integer,primary_key=True)
     post_user_id = db.Column(db.String(50),db.ForeignKey('user.user_id'),nullable=False)
@@ -162,6 +208,23 @@ class Post(db.Model):
         self.user = user
         self.category = category
 
+    def __repr__(self):
+        return self.title
+
+class Comment(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    user = db.relationship('User')
+    comment_user_id = db.Column(db.Integer,db.ForeignKey('user.user_id'))
+    comment_post_id = db.Column(db.Integer,db.ForeignKey('post.post_id'))
+    post = db.relationship('Post')
+    text = db.Column(db.String,nullable=False)
+    created_at = db.Column(db.DateTime(),default=datetime.utcnow())
+
+    def __init__(self,user,text,post):
+        self.user = user
+        self.text = text
+        self.post = post
+
 class Category(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(50),nullable=False)
@@ -169,10 +232,14 @@ class Category(db.Model):
     def __init__(self,name):
         self.name = name
 
+    def __repr__(self):
+        return self.name
+
 if __name__ == '__main__':
     db.create_all()
     admin = Admin(app, name='microblog', template_mode='bootstrap3')
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Post, db.session))
     admin.add_view(ModelView(Category, db.session))
+    admin.add_view(ModelView(Comment, db.session))
     app.run(debug=True)

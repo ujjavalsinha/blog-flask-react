@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import styles from './Login.module.css'
 import * as actions from '../../store/actions/index'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import Spinner from '../Spinner/Spinner'
 const emailRegExp = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/)
 const Login = (props) => {
@@ -55,6 +56,8 @@ const Login = (props) => {
             <input name='password' type='password' placeholder='PASSWORD' value={password} onChange={(e)=>handleChange(e)}></input>
             {submit ? <p style={{color : 'red'}}>{errors.password}</p> : <p></p>}
             <button disabled={disableSubmit()} onClick={(e)=>{onLogin(e)}}>LogIn</button>
+            <NavLink to='/signup'></NavLink>
+
         </form>
     )
     if(props.loading){

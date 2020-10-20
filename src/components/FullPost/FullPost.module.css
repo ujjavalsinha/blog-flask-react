@@ -8,15 +8,15 @@
 }
 .FullPost .Category{
     display : inline-block;
-    background-color : black;
-    padding : 5px;
-    color : white;
+    border : 2px solid black;
+    padding : 8px;
+    position : relative;
 }
+
 .FullPost .Title{
     font-weight : bolder;
     display : block;
     font-size : 40px;
-    cursor : pointer;
 }
 .FullPost .AuthorDate{
     
@@ -26,14 +26,19 @@
 }
 
 .FullPost .Author{
-    font-size : 20px;
+    
     font-weight : bold;
     flex : 1;
 }
-
+.FullPost .Author .AuthorSpan{
+    margin-left : 8px;
+    font-size : 25px;
+    
+}
 .FullPost .Author span img{
-    width : 15px;
-    height : 15px;
+    
+    width : 30px;
+    height : 30px;
 }
 
 .FullPost .Date{
@@ -56,5 +61,19 @@
 .FullPost .Delete:hover,.FullPost .Update:hover{
     background-color : black;
     color : white
+}
+
+.FullPost .EditDelete{
+    display : flex;
+}
+
+.FullPost textarea{
+    padding : 5px;
+    width : 50%;
+    height : 60px;
+    overflow : auto;
+    font-size : 16px;
+    font-family: 'Nunito', sans-serif;
+    border : 0.5px solid rgb(126, 123, 123);
 }
 

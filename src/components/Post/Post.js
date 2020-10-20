@@ -15,6 +15,9 @@ const Post = (props) => {
             </div>
             <div>
               <p className={styles.Text}>{props.post.text.slice(0,200)+'.....'}</p>
+              <div className={styles.ReadMoreDiv}>
+                <button onClick={props.clicked} className={styles.ReadMore}>Read More</button>
+              </div>
             </div>
         </div>
     )

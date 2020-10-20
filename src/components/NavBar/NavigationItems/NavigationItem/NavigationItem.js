@@ -5,7 +5,7 @@ const NavigationItem = (props) => {
     console.log(props.path)
     return (
         <li className={styles.NavigationItem}>
-            <NavLink to={props.path}>{props.children}</NavLink>
+            <NavLink to={props.path} activeClassName={styles.active}>{props.children}</NavLink>
         </li>
     )
 }

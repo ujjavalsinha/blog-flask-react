@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 .PostForm{
-    height : 90vh;
+    width : 100%;
     display : flex;
     justify-content : center;
     align-items : center;
@@ -11,13 +11,16 @@
     display : flex;
     box-sizing: border-box;
     flex-direction : column;
-    height : 100%;
+    width : 60%;
     
 }
 .PostForm form textarea{
-    height : 50%;
+    font-family: 'Nunito', sans-serif;
+    height : 300px;
     overflow : auto;
     margin : 10px;
+    font-size : 16px;
+    padding : 10px;
 }
 .PostForm form input{
     height : 28px;
@@ -28,7 +31,13 @@
     border-radius : 5px;
     border : 0.5px solid black;
 }
-
+.PostForm .Title{
+    border : 0.4px solid rgb(194, 186, 186);
+    font-size : 40px;
+    height : 60px;
+    font-weight : 400;
+    line-height : 1;
+}
 .PostForm form select{
     margin : 10px;
     height : 30px;

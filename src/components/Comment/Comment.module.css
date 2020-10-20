@@ -1,0 +1,35 @@
+.Comment{
+    width : 50%;
+    
+}
+.Comment .AuthorAvatar{
+    
+    
+}
+.Comment .Author span{
+    margin-right : 5px;
+}
+.Comment .AuthorAvatar img{
+    
+    height : 28px;
+    width : 28px;
+}
+
+.Comment .Author{
+    margin-left : 3px;
+    font-weight : 700;
+    line-height : 1;
+    text-transform: capitalize;
+}
+.Comment .TextDate{
+    margin-left : 35px;
+
+}
+
+.Text{
+    font-size : 15px;
+}
+
+.Date{
+    font-size : 12px;
+}
