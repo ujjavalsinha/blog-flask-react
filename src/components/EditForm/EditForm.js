@@ -1,30 +1,44 @@
 import React, { Component } from 'react'
-import styles from './PostForm.module.css'
+import styles from './EditForm.module.css'
 import {connect} from 'react-redux'
 import * as actions from '../../store/actions/index'
-import {Editor } from 'react-draft-wysiwyg'
-import { EditorState } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-class PostForm extends Component {
+import axios from '../../index'
+class EditForm extends Component {
+    
     state = {
         title :'',
-        text : EditorState.createEmpty(),
-        category: "Music"
+        text : '',
+        category: "Music",
     }
-    onEditorStateChange = (editorState) => {
-        this.setState({
-          editorState,
-        });
-      };
+    componentDidMount(){
+        axios.get('/api/post/'+this.props.match.params.post_id+'?auth='+this.props.tokenId)
+        .then(response => {
+            console.log(response)
+            this.setState({title : response.data.title, text : response.data.text, category : response.data.category})
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
     onPublish = (e) => {
         e.preventDefault()
         const orderData = {...this.state,userId : this.props.userId}
-        this.props.onPost(orderData,this.props.tokenId,this.props.history)
+        // this.props.onPost(orderData,this.props.tokenId,this.props.history)
+        axios.post('/api/post/'+this.props.match.params.post_id+'?auth='+this.props.tokenId,this.state)
+        .then(response => {
+            console.log(response)
+            this.props.history.replace('/posts')
+        })
+        .catch(error=>{
+            console.log(error)
+        })
     }
-
+    
+    
     
     render(){
-        const { editorState } = this.state;
+         
         return ( 
             
             <div className={styles.PostForm}>
@@ -37,13 +51,7 @@ class PostForm extends Component {
                         <option value="Fitness">Fitness</option>
                         <option value="Technology">Technology</option>
                     </select>
-                    <Editor 
-                    editorState={editorState} 
-                    onEditorStateChange={this.onEditorStateChange}
-                    wrapperClassName="wrapper-class"
-                    wrapperStyle={{width:'60%',height : '200px'}}
-                    />
-                    
+                    <textarea value={this.state.text} onChange={(e)=>this.setState({text : e.target.value})}></textarea>
                     <button onClick={(e)=>this.onPublish(e)}>PUBLISH</button>
                 </form>
             </div>
@@ -62,4 +70,4 @@ const mapDispatchToProps = dispatch => {
         onPost : (orderData,tokenId,history) => dispatch(actions.postSubmit(orderData,tokenId,history))
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(PostForm)
+export default connect(mapStateToProps,mapDispatchToProps)(EditForm)

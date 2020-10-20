@@ -1,0 +1,49 @@
+.Post{
+    display : flex;
+    flex-direction : column;
+    width : 60%;
+    box-shadow : 0 0 10px rgba(117, 115, 115, 0.3);
+    border-radius : 8px;
+    padding : 0 30px 20px 30px;
+    margin : 10px;
+    
+}
+.Category{
+    display : inline-block;
+    border : 2px solid black;
+    padding : 5px;
+    
+}
+.Title{
+    
+    display : block;
+    font-size : 25px;
+    font-weight : bolder;
+    cursor : pointer;
+}
+.AuthorDate{
+    
+    display : flex;
+    width : 60%;
+    align-items : center;
+}
+
+.Author{
+    font-size : 25px;
+    font-weight : bold;
+    flex : 1;
+}
+
+.Author span img{
+    width : 20px;
+    height : 20px;
+}
+
+.Date{
+    flex : 1;
+}
+
+.Text{
+    
+    display : block;
+}

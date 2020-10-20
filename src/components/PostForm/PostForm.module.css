@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 .PostForm{
-    height : 90vh;
+    width : 90%;
     display : flex;
     justify-content : center;
     align-items : center;
@@ -14,11 +14,7 @@
     height : 100%;
     
 }
-.PostForm form textarea{
-    height : 50%;
-    overflow : auto;
-    margin : 10px;
-}
+
 .PostForm form input{
     height : 28px;
     width : 40vw;
@@ -54,4 +50,8 @@ button{
 button:hover{
     background-color : black;
     color : white;
+}
+
+.PostForm .wrapper-class{
+    width : 70%;
 }

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,Response
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 import os,random,string
@@ -6,7 +6,7 @@ from datetime import datetime
 from flask_cors import CORS
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-
+from flask_api import status
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'asdkn32knSDASdnakdnsNKANFSKF4434tSAFKMl'
@@ -37,27 +37,30 @@ class InvalidUsage(Exception):
         rv['message'] = self.message
         return rv
 
-@app.route('/login',methods=['POST'])
+@app.route('/api/login',methods=['POST'])
 def post():
     print("INSIDE LOGIN METHOD")
     email = request.json['email']
     password = request.json['password']
     user = User.query.filter_by(email=email).first()
     if user is None: 
-        return jsonify({"message" : "This user is not registered"})
+        raise InvalidUsage("Email is not registered",status_code=401)
     authenticated_user = User.query.filter_by(email=email,password=password).first()
     if authenticated_user is None:
-        return jsonify({"message" : "Incorrect password"})
+        return Response("{'a':'b'}", status=401, mimetype='application/json')
     json_output = {'userId':authenticated_user.user_id, 'tokenId' : tokenId}
     return jsonify(json_output)
 
 
-@app.route('/users',methods=['POST'])
+@app.route('/api/users',methods=['POST'])
 def get():
     name = request.json['name']
     email = request.json['email']
     city = request.json['city']
     password = request.json['password']
+    user = User.query.filter_by(email = email).first()
+    if user is not None:
+        return "Email already exists" , 400
     user = User(name=name,email=email,city=city,password=password)
     db.session.add(user)
     db.session.commit()
@@ -67,22 +70,65 @@ def get():
     print(user_json_output)
     return jsonify(user_json_output)
 
-@app.route('/posts',methods=["POST"])
+@app.route('/api/post/<post_id>',methods=['GET','POST'])
+def get_fullpost(post_id):
+    auth = request.args.get('auth')
+    if auth!=tokenId:
+        raise InvalidUsage("You are not authorized",status_code=401)
+    if request.method == 'POST':
+        post = Post.query.get(post_id)
+        post.title = request.json['title']
+        post.text = request.json['text']
+        category = Category.query.filter_by(name = request.json['category']).first()
+        post.category = category
+        db.session.commit()
+        return "Post Edited Successfully"
+    post = Post.query.get(post_id)
+    json_output = {'post_id': post_id,'title':post.title,'text':post.text,'published_date':post.pub_date,'category':post.category.name,'author':post.user.name}
+    return jsonify(json_output)
+
+@app.route('/api/post/<post_id>/delete', methods=['GET'])
+def delete_post(post_id):
+    auth = request.args.get('auth')
+    if auth!=tokenId:
+        raise InvalidUsage("You are not authorized",status_code=401)
+    post = Post.query.get(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return "Post Deleted"
+
+
+@app.route('/api/posts',methods=["POST","GET"])
 def post_posts():
     auth = request.args.get('auth')
     if auth!=tokenId:
         raise InvalidUsage("You are not authorized",status_code=401)
-    title = request.json['title']
-    category = request.json['category']
-    user_id = request.json['userId']
-    text = request.json['text']
-    user = User.query.filter_by(user_id = user_id).first()
-    cat = Category.query.filter_by(name=category).first()
-    post = Post(title=title,text=text,user=user,category=cat)
-    db.session.add(post)
-    db.session.commit()
-    return "Post submitted", 200
-
+    if request.method == 'POST':
+        title = request.json['title']
+        category = request.json['category']
+        user_id = request.json['userId']
+        text = request.json['text']
+        user = User.query.filter_by(user_id = user_id).first()
+        cat = Category.query.filter_by(name=category).first()
+        post = Post(title=title,text=text,user=user,category=cat)
+        db.session.add(post)
+        db.session.commit()
+        return "Post submitted", 200
+    else:
+        userId = request.args.get('userId')
+        user = User.query.filter_by(user_id = userId).first()
+        posts = Post.query.filter_by(user=user).all()
+        all_posts = []
+        for post in posts:
+            post_dict = {}
+            post_dict['post_id'] = post.post_id
+            post_dict['title'] = post.title
+            post_dict['text'] = post.text
+            post_dict['published_date'] = post.pub_date
+            post_dict['category'] = post.category.name
+            post_dict['author'] = post.user.name
+            all_posts.append(post_dict)
+        return jsonify(all_posts)
 
 db = SQLAlchemy(app)
 

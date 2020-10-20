@@ -1,34 +1,44 @@
 *{
     box-sizing: border-box;
 }
-.Login{
+.PostForm{
     height : 90vh;
     display : flex;
     justify-content : center;
-    align-items : center; 
+    align-items : center;
 }
-
-.Login form {
-    padding : 0 30px 20px 30px;
-    box-shadow : 0 0 8px rgba(160, 157, 157, 0.3);
-    border-radius : 8px;
-    width : 32%;
+.PostForm form {
     display : flex;
-    flex-direction : column;
     box-sizing: border-box;
-    height : 60%;
-    justify-content : space-evenly;
+    flex-direction : column;
+    height : 100%;
     
 }
-
-.Login form input{
+.PostForm form textarea{
+    height : 50%;
+    overflow : auto;
+    margin : 10px;
+}
+.PostForm form input{
     height : 28px;
-    
+    width : 40vw;
     padding-left : 10px;
     font-size : 15px;
+    margin : 10px;
+    border-radius : 5px;
+    border : 0.5px solid black;
 }
 
-.Login button{
+.PostForm form select{
+    margin : 10px;
+    height : 30px;
+    font-size : 15px;
+    background-color : black;
+    color : white;
+    border-radius : 5px;
+}
+
+button{
     width : 100px;
     padding : 10px;
     display : flex;
@@ -41,12 +51,7 @@
     transition : background-color 0.3s ease-in-out
 }
 
-.Login button:hover{
+button:hover{
     background-color : black;
     color : white;
-}
-.Login button:disabled{
-    pointer-events: none;
-    cursor : not-allowed;
-    background-color : rgb(233, 232, 232);
 }

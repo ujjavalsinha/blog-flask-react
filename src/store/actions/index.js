@@ -1,3 +1,3 @@
-export {authSignIn,authSignUp} from './auth.js'
+export {authSignIn,authSignUp,logout,authReset} from './auth.js'
 
-export {postSubmit} from './post.js'
+export {postSubmit, postFetch} from './post.js'

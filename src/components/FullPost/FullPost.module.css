@@ -1,0 +1,60 @@
+.FullPost{
+    margin-left : 10%;
+}
+.Container{
+    display : flex;
+    flex-direction : column;
+    width : 60%;
+}
+.FullPost .Category{
+    display : inline-block;
+    background-color : black;
+    padding : 5px;
+    color : white;
+}
+.FullPost .Title{
+    font-weight : bolder;
+    display : block;
+    font-size : 40px;
+    cursor : pointer;
+}
+.FullPost .AuthorDate{
+    
+    display : flex;
+    width : 60%;
+    align-items : center;
+}
+
+.FullPost .Author{
+    font-size : 20px;
+    font-weight : bold;
+    flex : 1;
+}
+
+.FullPost .Author span img{
+    width : 15px;
+    height : 15px;
+}
+
+.FullPost .Date{
+    flex : 1;
+}
+
+.FullPost .Text{
+    
+    display : block;
+}
+
+.FullPost .Delete, .FullPost .Update {
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    padding : 5px;
+    margin : 10px;
+}
+
+.FullPost .Delete:hover,.FullPost .Update:hover{
+    background-color : black;
+    color : white
+}
+
