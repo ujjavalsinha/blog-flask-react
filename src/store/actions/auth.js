@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import axios from 'axios'
+import axios from '../../index.js'
 export const authStart = () => {
     return {
         type : actionTypes.AUTH_START
@@ -14,9 +14,16 @@ export const authSuccess = (tokenId,userId) => {
     }
 }
 
-export const authFail = () => {
+export const authReset = () => {
     return {
-        type : actionTypes.AUTH_FAIL
+        type : actionTypes.AUTH_RESET
+    }
+}
+
+export const authFail = (error) => {
+    return {
+        type : actionTypes.AUTH_FAIL,
+        error : error
     }
 }
 
@@ -24,7 +31,7 @@ export const authSignUp = (userData,history) => {
 
     return dispatch => {
         dispatch(authStart())
-        axios.post('http://127.0.0.1:5000/users',userData)
+        axios.post('/api/users',userData)
         .then(response => {
             console.log(response)
             dispatch(authSuccess())
@@ -32,19 +39,23 @@ export const authSignUp = (userData,history) => {
         })
         .catch(error => {
             console.log(error)
-            dispatch(authFail())
+            dispatch(authFail(error))
         })
     }
 }
-
+export const logout = () => {
+    return {
+        type : actionTypes.AUTH_LOGOUT
+    }
+}
 export const authSignIn = (userLoginData,history) => {
     return dispatch => {
         dispatch(authStart())
-        axios.post('http://127.0.0.1:5000/login',userLoginData)
+        axios.post('/api/login',userLoginData)
         .then(response => {
             console.log(response)
             dispatch(authSuccess(response.data.tokenId,response.data.userId))
-            history.replace('/')
+            history.push('/')
         })
         .catch(error => {
             console.log(error)

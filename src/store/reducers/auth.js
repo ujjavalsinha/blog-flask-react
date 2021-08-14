@@ -9,6 +9,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
+        case(actionTypes.AUTH_RESET):
+            return {
+                ...state,
+                userId : null,
+                tokenId : null,
+                loading : false,
+                error : null
+            }
         case(actionTypes.AUTH_START):
             return {
                 ...state,
@@ -26,6 +34,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading :false,
                 error : action.error
+            }
+        case(actionTypes.AUTH_LOGOUT):
+            return {
+                ...state,
+                tokenId : null,
+                userId : null
             }
         default:
             return state;

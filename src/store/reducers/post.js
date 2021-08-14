@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     post : [],
     loading : false,
-    error : false
+    error : false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +25,13 @@ const reducer = (state = initialState, action) => {
                 error : action.error,
                 loading : false
             }
+        case(actionTypes.POST_FETCH_SUCCESS):
+            return {
+                ...state,
+                post : action.posts,
+                loading : false
+            }
+        
         default : 
             return state
     }

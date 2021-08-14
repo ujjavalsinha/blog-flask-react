@@ -1,24 +1,42 @@
 import React, {Component} from 'react'
 import * as actions from '../../store/actions/index'
 import {connect } from 'react-redux'
-import styles from './Posts.module.css'
+import styles from './HomePage.module.css'
 import Post from '../Post/Post'
 import Spinner from '../Spinner/Spinner'
-class Posts extends Component{
+import axios from 'axios'
+
+class HomePage extends Component{
+    state = {
+        posts : null
+    }
+
     componentDidMount(){
-        this.props.onPostsFetch(this.props.token,this.props.userId)
+        axios.get('http://127.0.0.1:5000/api/allposts')
+        .then(response => {
+            this.setState({posts : response.data})
+        })
+        .catch(error=> {
+            console.log(error)
+        })
     }
 
     showFullPost(post_id){
-        console.log("POST ID INSIDE SHO")
-        this.props.history.push({pathname : '/post/'+post_id})
+        console.log("IS AUTH : ",this.props.isAuth)
+        if(this.props.isAuth){
+            this.props.history.push({pathname : '/post/'+post_id})
+        }
+        else{
+            console.log("inside else")
+            this.props.history.push('/login')
+        }
     }
     render(){
         let allPosts = <Spinner/>
-        if(this.props.posts){
+        if(this.state.posts){
             allPosts = (
-                <div className={styles.Posts}>
-                {this.props.posts.map(post => 
+                <div className={styles.HomePage}>
+                {this.state.posts.map(post => 
                     <Post key={new Date(post.published_date).getSeconds()} clicked={() => this.showFullPost(post.post_id)} post={post}/>
                 )}
             </div>
@@ -30,6 +48,7 @@ class Posts extends Component{
 
 const mapStateToProps = state => {
     return {
+        isAuth : state.auth.tokenId !==null,
         posts : state.post.post,
         token : state.auth.tokenId,
         userId : state.auth.userId,
@@ -42,4 +61,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Posts)
+export default connect(mapStateToProps,mapDispatchToProps)(HomePage)

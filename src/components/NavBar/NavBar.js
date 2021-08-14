@@ -3,11 +3,12 @@ import styles from './NavBar.module.css'
 import Logo from '../Logo/Logo'
 import NavigationItems from './NavigationItems/NavigationItems'
 import {connect} from 'react-redux'
-
+import {withRouter } from 'react-router-dom'
 const NavBar = (props) => {
+    
     return (
             <div className={styles.NavBar}>
-                <div className={styles.Logo}>
+                <div className={styles.Logo} onClick={()=>props.history.push('/')}>
                     <Logo/>
                 </div>
                 <div className={styles.NavigationItems}>
@@ -22,4 +23,4 @@ const mapStateToProps = state => {
         isAuth : state.auth.tokenId !==null
     }
 }
-export default connect(mapStateToProps)(NavBar)
+export default connect(mapStateToProps)(withRouter(NavBar))

@@ -6,9 +6,31 @@
     display : flex;
     justify-content : center;
     align-items : center;
-    margin-left : 30px;
 }
-
+.PostForm form {
+    display : flex;
+    box-sizing: border-box;
+    flex-direction : column;
+    width : 60%;
+    
+}
+.PostForm form textarea{
+    font-family: 'Nunito', sans-serif;
+    height : 300px;
+    overflow : auto;
+    margin : 10px;
+    font-size : 16px;
+    padding : 10px;
+}
+.PostForm form input{
+    height : 28px;
+    width : 40vw;
+    padding-left : 10px;
+    font-size : 15px;
+    margin : 10px;
+    border-radius : 5px;
+    border : 0.5px solid black;
+}
 .PostForm .Title{
     border : 0.4px solid rgb(194, 186, 186);
     font-size : 40px;
@@ -16,32 +38,7 @@
     font-weight : 400;
     line-height : 1;
 }
-.PostForm form {
-    display : flex;
-    box-sizing: border-box;
-    flex-direction : column;
-    width : 60%;
-    overflow : auto;
-    
-}
-.PostForm form textarea{
-    height : 300px;
-    margin : 10px;
-    font-size : 16px;
-    font-family: 'Nunito', sans-serif;
-    padding : 10px;
-}
-.PostForm form input{
-    height : 28px;
-    padding-left : 10px;
-    font-size : 15px;
-    margin : 10px;
-    border-radius : 5px;
-    border : 0.5px solid black;
-}
-
 .PostForm form select{
-    display : inline-block;
     margin : 10px;
     height : 30px;
     font-size : 15px;
@@ -53,7 +50,6 @@
 button{
     width : 100px;
     padding : 10px;
-    margin-top : 10px;
     display : flex;
     align-items : center;
     justify-content : center;
@@ -67,8 +63,4 @@ button{
 button:hover{
     background-color : black;
     color : white;
-}
-
-.PostForm .wrapper-class{
-    width : 70%;
 }

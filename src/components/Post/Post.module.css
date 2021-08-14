@@ -1,0 +1,65 @@
+.Post{
+    display : flex;
+    flex-direction : column;
+    width : 60%;
+    box-shadow : 0 0 10px rgba(117, 115, 115, 0.3);
+    border-radius : 8px;
+    padding : 0 30px 30px 30px;
+    margin : 10px;
+    
+}
+.Post .Category{
+    display : inline-block;
+    border : 2px solid black;
+    padding : 5px;
+    
+}
+.Post .Title{
+    
+    display : block;
+    font-size : 25px;
+    font-weight : bolder;
+    cursor : pointer;
+}
+.Post .AuthorDate{
+    
+    display : flex;
+    width : 60%;
+    align-items : center;
+}
+
+.Post .Author{
+    font-size : 25px;
+    font-weight : bold;
+    flex : 1;
+}
+
+.Post .Author span img{
+    width : 20px;
+    height : 20px;
+}
+
+.Post .Date{
+    flex : 1;
+}
+
+.Post .Text{
+    
+    display : block;
+}
+.Post .ReadMoreDiv{
+    width : 100%;
+}
+.Post .ReadMore{
+    padding : 6px;
+    background-color : black;
+    color : white;
+    margin-left : 80%;
+    cursor: pointer;
+    border-radius : 0px;
+}
+
+.Post .ReadMore:hover{
+    background-color : white;
+    color : black;
+}

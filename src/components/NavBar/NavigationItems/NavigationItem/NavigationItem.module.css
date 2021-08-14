@@ -1,13 +1,16 @@
 
 .NavigationItem a {
     text-decoration : none;
-    border-radius : 5px;
     border : none;
-    color : black;
-    padding : 10px;
-    transition : background-color 0.2s ease-in-out;
+    color : rgb(209, 202, 202);
+    padding : 7px;
+    overflow : hidden;
+    transition : border 0.2s linear;
 }
-.NavigationItem a:hover{
-    background-color : black;
+.NavigationItem a:hover,
+.NavigationItem a.active{
+    
+    font-weight : 700;
     color : white;
+
 }
