@@ -23,6 +23,12 @@ class Posts extends Component{
                 )}
             </div>
             )
+        }else{
+            allPosts = (
+                <div className={styles.emptyPosts}>
+                    <p className={styles.noPosts}>You dont have any posts</p>
+                </div>
+                )
         }
         return allPosts
     }
