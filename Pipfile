@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+pyenv = "2.7"
 flask = "*"
 flask-sqlalchemy = "*"
 flask-marshmallow = "*"
