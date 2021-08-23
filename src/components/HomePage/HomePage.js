@@ -12,7 +12,7 @@ class HomePage extends Component{
     }
 
     componentDidMount(){
-        axios.get('http://127.0.0.1:5000/api/allposts')
+        axios.get('https://ujjavalsblog.herokuapp.com/api/allposts')
         .then(response => {
             this.setState({posts : response.data})
         })
