@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
 import {BrowserRouter, } from 'react-router-dom'
 import axios from 'axios'
 
-const axiosInstance = axios.create({baseURL : "http://127.0.0.1:5000/"})
+const axiosInstance = axios.create({baseURL : "https://ujjavalsblog.herokuapp.com/"})
 
 
 const rootReducer = combineReducers({
